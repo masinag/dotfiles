@@ -4,7 +4,7 @@ M.setup_lsp = function(attach, capabilities)
   local lspconfig = require "lspconfig"
 
   -- lspservers with default config
-  local servers = { "sumneko_lua", "ccls", "html", "pyright" }
+  local servers = { "sumneko_lua", "ccls", "html", "pyright", "rust_analyzer" }
 
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
@@ -17,7 +17,7 @@ M.setup_lsp = function(attach, capabilities)
     settings = {
       Lua = {
         diagnostics = {
-          globals = { 'vim', 'use'}
+          globals = { 'vim', 'use' }
         }
       }
     }
