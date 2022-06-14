@@ -4,7 +4,7 @@ M.setup_lsp = function(attach, capabilities)
   local lspconfig = require "lspconfig"
 
   -- lspservers with default config
-  local servers = { "sumneko_lua", "ccls", "html", "pyright", "rust_analyzer" }
+  local servers = { "sumneko_lua", "ccls", "html", "bashls", "pyright", "rust_analyzer", "cmake" }
 
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
@@ -22,6 +22,11 @@ M.setup_lsp = function(attach, capabilities)
       }
     }
   }
+  -- lspconfig.ccls.setup {
+  --   init_options = {
+  --     compilationDatabaseDirectory = "./build/"
+  --   }
+  -- }
 end
 
 return M

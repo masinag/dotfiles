@@ -10,6 +10,7 @@ return {
     -- config = function()
     --   require("custom.plugins.alpha").setup()
     -- end
-  }
-
+  },
+  -- ['mfussenegger/nvim-dap'] = {
+  -- }
 }

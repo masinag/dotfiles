@@ -16,30 +16,35 @@ local with_root_file = function(builtin, file)
 end
 
 local sources = {
-  -- formatting
+  -- webdev
   b.formatting.prettierd,
-  b.formatting.shfmt,
   b.formatting.fixjson,
-  -- b.formatting.black.with { extra_args = { "--fast", "--line-length", "88" } },
+  b.diagnostics.tsc,
+
+  -- shell
+  b.formatting.shfmt,
+  with_diagnostics_code(b.diagnostics.shellcheck),
+
+  -- python
   b.formatting.black.with { extra_args = { "--fast" } },
   b.formatting.isort.with { extra_args = { "--profile", "black" } },
-  b.formatting.rustfmt,
-  with_root_file(b.formatting.stylua, "stylua.toml"),
-
-  -- diagnostics
-  b.diagnostics.write_good,
-  b.diagnostics.markdownlint,
-  -- b.diagnostics.eslint_d,
-  -- b.diagnostics.flake8.with { args = { "--max-line-length", "88", "--format", "default", "--stdin-display-name", "$FILENAME", "-" } },
   b.diagnostics.flake8.with { args = { "--format", "default", "--stdin-display-name", "$FILENAME", "-" } },
-  b.diagnostics.tsc,
-  with_root_file(b.diagnostics.selene, "selene.toml"),
-  with_diagnostics_code(b.diagnostics.shellcheck),
+
+  -- rust
+  b.formatting.rustfmt,
+
+  -- cpp
+   b.formatting.clang_format,
 
   -- code actions
   b.code_actions.gitsigns,
   b.code_actions.gitrebase,
 
+  -- other
+  with_root_file(b.diagnostics.selene, "selene.toml"),
+  b.diagnostics.write_good,
+  b.diagnostics.markdownlint,
+  with_root_file(b.formatting.stylua, "stylua.toml"),
   -- hover
   b.hover.dictionary,
 }
@@ -65,11 +70,11 @@ M.setup = function()
     sources = sources,
 
     -- format on save
-    on_attach = function(client)
-      if client.resolved_capabilities.document_formatting then
-        vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
-      end
-    end,
+    -- on_attach = function(client)
+    --   if client.resolved_capabilities.document_formatting then
+    --     vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
+    --   end
+    -- end,
   }
 end
 
